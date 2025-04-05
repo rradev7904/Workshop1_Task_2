@@ -1,0 +1,31 @@
+name: Selenium Webdriver Tests
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up dot net sdk
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+        
+    - name: Install nuget packages
+      run: dotnet restore SeleniumBasicExercise.sln
+      
+    - name: Build
+      run: dotnet build SeleniumBasicExercise.sln
+      
+    - name: Run Test Project 1 tests
+      run: dotnet test TestProject1/TestProject1.csproj
+      
+    - name: Run Test Project 2 tests
+      run: dotnet test TestProject2/TestProject2.csproj
